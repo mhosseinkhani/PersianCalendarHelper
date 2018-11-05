@@ -1,0 +1,34 @@
+{
+  "name": "persiancalendarhelper",
+  "version": "1.0.0",
+  "description": "convert gregorian to jalali (persian) date time in angular",
+  "main": "index.js",
+  "scripts": {
+    "test": "run e2e",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mhosseinkhani/PersianCalendarHelper.git"
+  },
+  "keywords": [
+    "persiancalendar",
+    "angular",
+    "gregorian",
+    "datetime",
+    "date"
+  ],
+  "author": "mhossinkhani",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mhosseinkhani/PersianCalendarHelper/issues"
+  },
+  "homepage": "https://github.com/mhosseinkhani/PersianCalendarHelper#readme",
+  "devDependencies": {
+    "@types/pluralize": "0.0.29",
+    "typescript": "^3.1.6"
+  },
+  "dependencies": {
+    "pluralize": "^7.0.0"
+  }
+}
