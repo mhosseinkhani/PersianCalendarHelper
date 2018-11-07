@@ -1,6 +1,6 @@
 {
   "name": "persiancalendarhelper",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "convert gregorian to jalali (persian) date time in angular",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

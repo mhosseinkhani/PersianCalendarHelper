@@ -25,8 +25,8 @@ export class PersianCalendarService {
       "بهمن",
       "اسفند"
     ];
-    strWeekDay: string='';
-    strMonth: string='' ;
+    weekDayName: string='';
+    monthName: string='' ;
     day: number = -1;
     month: number = -1;
     year: number = -1;
@@ -36,9 +36,9 @@ export class PersianCalendarService {
     gregorianYear: any = null;
     gregorianMonth: any = null;
     gregorianDate: any = null;
-    WeekDay: any = null;
-    buf1: number[] = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
-    buf2: number[] = [0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335];
+    dayOfWeek: any = null;
+    yearDays: number[] = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
+    leapYearDays: number[] = [0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335];
   
     constructor() {}
   
@@ -47,10 +47,10 @@ export class PersianCalendarService {
       this.gregorianYear = this.today.getFullYear();
       this.gregorianMonth = this.today.getMonth() + 1;
       this.gregorianDate = this.today.getDate();
-      this.WeekDay = this.today.getDay();
+      this.dayOfWeek = this.today.getDay();
       this.toPersian(gregorianDate);
       return (
-        this.strWeekDay + " " + this.day + " " + this.strMonth + " " + this.year
+        this.weekDayName + " " + this.day + " " + this.monthName + " " + this.year
       );
     }
     longPersianDateTime(gregorianDate: any): string {
@@ -58,18 +58,18 @@ export class PersianCalendarService {
       this.gregorianYear = this.today.getFullYear();
       this.gregorianMonth = this.today.getMonth() + 1;
       this.gregorianDate = this.today.getDate();
-      this.WeekDay = this.today.getDay();
+      this.dayOfWeek = this.today.getDay();
       this.toPersian(gregorianDate);
       return (
         this.today.getHours() +
         ":" +
         this.today.getMinutes() +
         " " +
-        this.strWeekDay +
+        this.weekDayName +
         " " +
         this.day +
         " " +
-        this.strMonth +
+        this.monthName +
         " " +
         this.year
       );
@@ -79,7 +79,7 @@ export class PersianCalendarService {
       this.gregorianYear = this.today.getFullYear();
       this.gregorianMonth = this.today.getMonth() + 1;
       this.gregorianDate = this.today.getDate();
-      this.WeekDay = this.today.getDay();
+      this.dayOfWeek = this.today.getDay();
       this.toPersian(gregorianDate);
       return (
         this.today.getHours() +
@@ -98,7 +98,7 @@ export class PersianCalendarService {
       this.gregorianYear = this.today.getFullYear();
       this.gregorianMonth = this.today.getMonth() + 1;
       this.gregorianDate = this.today.getDate();
-      this.WeekDay = this.today.getDay();
+      this.dayOfWeek = this.today.getDay();
       this.toPersian(gregorianDate);
       return (
         this.year +
@@ -113,7 +113,7 @@ export class PersianCalendarService {
       this.gregorianYear = this.today.getFullYear();
       this.gregorianMonth = this.today.getMonth() + 1;
       this.gregorianDate = this.today.getDate();
-      this.WeekDay = this.today.getDay();
+      this.dayOfWeek = this.today.getDay();
       this.toPersian(this.today);
       return (
         this.year +
@@ -124,14 +124,14 @@ export class PersianCalendarService {
       );
     }
     toPersian(gregorianDate: any) {
-      if (this.gregorianYear % 4 != 0) this.farsiDate = this.func1();
-      else this.farsiDate = this.func2();
-      this.strMonth = this.monthNames[Math.floor(this.month - 1)];
-      this.strWeekDay = this.weekDayNames[this.WeekDay + 1];
+      if (this.gregorianYear % 4 != 0) this.farsiDate = this.dateCalculate();
+      else this.farsiDate = this.leapDateCalculate();
+      this.monthName = this.monthNames[Math.floor(this.month - 1)];
+      this.weekDayName = this.weekDayNames[this.dayOfWeek + 1];
     }
   
-    func1(): string {
-      this.day = this.buf1[this.gregorianMonth - 1] + this.gregorianDate;
+    dateCalculate(): string {
+      this.day = this.yearDays[this.gregorianMonth - 1] + this.gregorianDate;
       if (this.day > 79) {
         this.day = this.day - 79;
         if (this.day <= 186) {
@@ -169,8 +169,8 @@ export class PersianCalendarService {
       return fullDate;
     }
   
-    func2(): string {
-      this.day = this.buf2[this.gregorianMonth - 1] + this.gregorianDate;
+    leapDateCalculate(): string {
+      this.day = this.leapYearDays[this.gregorianMonth - 1] + this.gregorianDate;
       this.ld = this.gregorianYear >= 1996 ? 79 : 80;
       if (this.day > this.ld) {
         this.day = this.day - this.ld;
