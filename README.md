@@ -17,4 +17,13 @@ install package
 $npm i persiancalendarhelper
 
 
+##Run Unit Tests
+
+
+$mocha test --recursive --watch
+or
+$npm run test
+
+
+
 
