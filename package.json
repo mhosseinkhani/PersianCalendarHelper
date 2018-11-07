@@ -6,8 +6,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "test": "mocha --reporter spec"
-
+    "test": "mocha test --recursive --watch"
   },
   "repository": {
     "type": "git",

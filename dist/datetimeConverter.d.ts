@@ -2,8 +2,8 @@ export declare class PersianCalendarService {
     private stringHelper;
     weekDayNames: string[];
     monthNames: string[];
-    strWeekDay: string;
-    strMonth: string;
+    weekDayName: string;
+    monthName: string;
     day: number;
     month: number;
     year: number;
@@ -13,9 +13,9 @@ export declare class PersianCalendarService {
     gregorianYear: any;
     gregorianMonth: any;
     gregorianDate: any;
-    WeekDay: any;
-    buf1: number[];
-    buf2: number[];
+    dayOfWeek: any;
+    yearDays: number[];
+    leapYearDays: number[];
     constructor();
     longPersianDate(gregorianDate: any): string;
     longPersianDateTime(gregorianDate: any): string;
@@ -23,6 +23,6 @@ export declare class PersianCalendarService {
     shortPersianDate(gregorianDate: any): string;
     shortPersinaDateNow(): string;
     toPersian(gregorianDate: any): void;
-    func1(): string;
-    func2(): string;
+    dateCalculate(): string;
+    leapDateCalculate(): string;
 }

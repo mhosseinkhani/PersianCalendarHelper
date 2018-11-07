@@ -27,8 +27,8 @@ var PersianCalendarService = /** @class */ (function () {
             "بهمن",
             "اسفند"
         ];
-        this.strWeekDay = '';
-        this.strMonth = '';
+        this.weekDayName = '';
+        this.monthName = '';
         this.day = -1;
         this.month = -1;
         this.year = -1;
@@ -38,35 +38,35 @@ var PersianCalendarService = /** @class */ (function () {
         this.gregorianYear = null;
         this.gregorianMonth = null;
         this.gregorianDate = null;
-        this.WeekDay = null;
-        this.buf1 = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
-        this.buf2 = [0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335];
+        this.dayOfWeek = null;
+        this.yearDays = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
+        this.leapYearDays = [0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335];
     }
     PersianCalendarService.prototype.longPersianDate = function (gregorianDate) {
         this.today = new Date(gregorianDate);
         this.gregorianYear = this.today.getFullYear();
         this.gregorianMonth = this.today.getMonth() + 1;
         this.gregorianDate = this.today.getDate();
-        this.WeekDay = this.today.getDay();
+        this.dayOfWeek = this.today.getDay();
         this.toPersian(gregorianDate);
-        return (this.strWeekDay + " " + this.day + " " + this.strMonth + " " + this.year);
+        return (this.weekDayName + " " + this.day + " " + this.monthName + " " + this.year);
     };
     PersianCalendarService.prototype.longPersianDateTime = function (gregorianDate) {
         this.today = new Date(gregorianDate);
         this.gregorianYear = this.today.getFullYear();
         this.gregorianMonth = this.today.getMonth() + 1;
         this.gregorianDate = this.today.getDate();
-        this.WeekDay = this.today.getDay();
+        this.dayOfWeek = this.today.getDay();
         this.toPersian(gregorianDate);
         return (this.today.getHours() +
             ":" +
             this.today.getMinutes() +
             " " +
-            this.strWeekDay +
+            this.weekDayName +
             " " +
             this.day +
             " " +
-            this.strMonth +
+            this.monthName +
             " " +
             this.year);
     };
@@ -75,7 +75,7 @@ var PersianCalendarService = /** @class */ (function () {
         this.gregorianYear = this.today.getFullYear();
         this.gregorianMonth = this.today.getMonth() + 1;
         this.gregorianDate = this.today.getDate();
-        this.WeekDay = this.today.getDay();
+        this.dayOfWeek = this.today.getDay();
         this.toPersian(gregorianDate);
         return (this.today.getHours() +
             ":" +
@@ -92,7 +92,7 @@ var PersianCalendarService = /** @class */ (function () {
         this.gregorianYear = this.today.getFullYear();
         this.gregorianMonth = this.today.getMonth() + 1;
         this.gregorianDate = this.today.getDate();
-        this.WeekDay = this.today.getDay();
+        this.dayOfWeek = this.today.getDay();
         this.toPersian(gregorianDate);
         return (this.year +
             "/" +
@@ -105,7 +105,7 @@ var PersianCalendarService = /** @class */ (function () {
         this.gregorianYear = this.today.getFullYear();
         this.gregorianMonth = this.today.getMonth() + 1;
         this.gregorianDate = this.today.getDate();
-        this.WeekDay = this.today.getDay();
+        this.dayOfWeek = this.today.getDay();
         this.toPersian(this.today);
         return (this.year +
             "/" +
@@ -115,14 +115,14 @@ var PersianCalendarService = /** @class */ (function () {
     };
     PersianCalendarService.prototype.toPersian = function (gregorianDate) {
         if (this.gregorianYear % 4 != 0)
-            this.farsiDate = this.func1();
+            this.farsiDate = this.dateCalculate();
         else
-            this.farsiDate = this.func2();
-        this.strMonth = this.monthNames[Math.floor(this.month - 1)];
-        this.strWeekDay = this.weekDayNames[this.WeekDay + 1];
+            this.farsiDate = this.leapDateCalculate();
+        this.monthName = this.monthNames[Math.floor(this.month - 1)];
+        this.weekDayName = this.weekDayNames[this.dayOfWeek + 1];
     };
-    PersianCalendarService.prototype.func1 = function () {
-        this.day = this.buf1[this.gregorianMonth - 1] + this.gregorianDate;
+    PersianCalendarService.prototype.dateCalculate = function () {
+        this.day = this.yearDays[this.gregorianMonth - 1] + this.gregorianDate;
         if (this.day > 79) {
             this.day = this.day - 79;
             if (this.day <= 186) {
@@ -161,8 +161,8 @@ var PersianCalendarService = /** @class */ (function () {
         var fullDate = this.day + "/" + Math.floor(this.month) + "/" + this.year;
         return fullDate;
     };
-    PersianCalendarService.prototype.func2 = function () {
-        this.day = this.buf2[this.gregorianMonth - 1] + this.gregorianDate;
+    PersianCalendarService.prototype.leapDateCalculate = function () {
+        this.day = this.leapYearDays[this.gregorianMonth - 1] + this.gregorianDate;
         this.ld = this.gregorianYear >= 1996 ? 79 : 80;
         if (this.day > this.ld) {
             this.day = this.day - this.ld;
