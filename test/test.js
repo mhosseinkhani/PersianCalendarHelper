@@ -39,9 +39,9 @@ describe('PersianCalendarService : longPersianDate() =>', function () {
 
 describe('PersianCalendarService : shortPersianDate() =>', function () {
     var persianCalendar = new PersianCalendarService.PersianCalendarService();
-    var now=new Date();
+    var now=new Date(2018,10,9);
     var result = persianCalendar.shortPersianDate(now);
-    it('shortPersianDate() should return persian date like '+result+' if '+now+' passed in', function () {
-        expect(persianCalendar.shortPersianDate(now)).to.equal(result);
+    it('shortPersianDate() should return persian date like 1397/08/18 if '+now+' passed in', function () {
+        expect(persianCalendar.shortPersianDate(now)).to.equal('1397/08/18');
     });
 });
